@@ -1,0 +1,119 @@
+html, body {
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden; 
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.background {
+    background-image: url(../photo/office.png);
+    background-size: cover;  
+    background-position: center;  
+    background-repeat: no-repeat; 
+    width: 100vw; 
+    height: 100vh;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.overlay {
+    position: absolute; 
+    top: clamp(15%, 28%, 35%);
+    left: 0;
+    width: 100%; 
+    height: clamp(40%, 52%, 60%);
+    background-color: rgba(141, 132, 122, 0.7);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    color: white; 
+    font-size: clamp(0.8rem, 1.5vw, 1.125rem);
+    text-align: center; 
+    padding: clamp(0.5rem, 3vw, 1.25rem);
+    overflow-y: auto; 
+    box-sizing: border-box; 
+    animation: fadeIn 1s ease-out both;
+}
+
+#catalogo-btn {
+    width: clamp(7.375rem, 19vw, 10.5rem);
+    height: clamp(2.5rem, 5vh, 3.125rem);
+    background: linear-gradient(to right, #74292c 50%, #8D847A 50%);
+    background-size: 200% 100%;
+    background-position: 0 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: clamp(0.6rem, 1.3vw, 0.925rem);
+    color: white;
+    transition: background-position 0.3s ease, color 0.3s ease;
+}
+
+#catalogo-btn:hover {
+    background-position: -100% 0;
+    color: white;
+}
+
+.container2 {
+    display: flex;
+    justify-content: center; 
+    text-align: center;
+    font-size: clamp(0.8rem, 1.5vw, 1.25rem);
+    line-height: 1.5;
+    color: black;
+    font-weight: 100;
+    padding: 0 clamp(1rem, 3vw, 2rem);
+}
+
+.container3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    gap: clamp(1rem, 3vw, 1.5rem);
+    padding: 0 clamp(1rem, 3vw, 2rem);
+}
+
+.container3 p {
+    font-size: clamp(0.7rem, 1.2vw, 1.125rem);
+    line-height: 1.5;
+    color: black;
+    font-weight: 100;
+    flex: 1;
+    min-width: 100px;  
+}
+
+.container3 img {
+    max-width: 45%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .container3 {
+        flex-direction: column;
+        text-align: left;
+    }
+    
+    .container3 img {
+        margin: 0 auto 1rem auto;
+        max-width: 70%;
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay {
+        height: 50%;
+    }
+}

@@ -1,0 +1,17 @@
+<Context>
+    <Resource name="jdbc/Tugurio" 
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/Tugurio?useSSL=false&amp;serverTimezone=UTC"
+              username="root"
+              password="Conferma01*"
+              maxTotal="100"
+              maxIdle="30"
+              maxWaitMillis="10000"
+              removeAbandonedTimeout="60"
+              removeAbandonedOnBorrow="true"
+              logAbandoned="true"
+              validationQuery="SELECT 1"
+              testOnBorrow="true"/>
+</Context>

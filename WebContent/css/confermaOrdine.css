@@ -1,0 +1,227 @@
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    padding-top: 10rem;
+    padding-bottom: 2rem;
+}    
+   
+.container {
+    max-width: min(1000px, 90vw);
+    margin: clamp(1rem, 3vw, 1.25rem) auto;
+    padding: clamp(1rem, 4vw, 1.25rem);
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.625rem rgba(0,0,0,0.1);
+    text-align: center;
+}
+        
+h1 {
+    text-align: center;
+    font-weight: 900;
+    margin-bottom: clamp(1rem, 4vw, 1.875rem);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+        
+.confirmation-message {
+    padding: clamp(1rem, 4vw, 1.875rem);
+    margin: clamp(1rem, 4vw, 1.875rem) 0;
+    border-radius: 0.5rem;
+    font-size: clamp(1rem, 2.5vw, 1.2em);
+}
+
+.confirmation-message h2 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    margin-bottom: 1rem;
+}
+        
+.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+        
+.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+/* Sezione pagamento con layout QR a sinistra */
+.payment-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: center;
+    justify-content: center;
+    margin: clamp(1rem, 4vw, 1.875rem) 0;
+    padding: clamp(1rem, 3vw, 1.25rem);
+}
+
+.qr-code-container {
+    text-align: center;
+    flex: 0 0 auto;
+}
+
+.qr-code-container p {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.qr-code {
+    border-radius: 0.5rem;
+}
+
+.payment-details {
+    flex: 0 0 auto;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 2vw, 0.75rem);
+}
+        
+.delivery-info {
+    margin: clamp(1rem, 4vw, 1.875rem) 0;
+    padding: clamp(1rem, 3vw, 1.25rem);
+    background: #f2f2f2;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    justify-content: center;
+}
+        
+.info-box {
+    flex: 1;
+    min-width: clamp(150px, 25vw, 200px);
+    max-width: 300px;
+    padding: clamp(0.75rem, 2.5vw, 0.9375rem);
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+}
+        
+.info-label {
+    font-size: clamp(0.8rem, 2vw, 0.9em);
+    font-weight: 700;
+}
+        
+.info-value {
+    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.2em);
+    margin-top: 0.3125rem;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(0.5rem, 2vw, 0.625rem);
+    justify-content: center;
+    margin-top: clamp(1rem, 3vw, 1.25rem);
+    font-family: 'Josefin Sans', sans-serif;
+}
+        
+.action-button {
+	font-family: 'Josefin Sans', sans-serif;
+    display: inline-block;
+    background: #721c24;
+    color: white;
+    text-decoration: none;
+    padding: clamp(0.75rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5625rem);
+    border-radius: 0.5rem;
+    font-weight: 700;
+    transition: opacity 0.3s;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    white-space: nowrap;
+    flex: 1;
+    min-width: clamp(120px, 25vw, 150px);
+    max-width: 200px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+        
+.action-button:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 7rem;
+    }
+    
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .payment-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .payment-details {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .delivery-info {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .info-box {
+        max-width: none;
+    }
+    
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .action-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding-top: 5rem;
+        padding-bottom: 1rem;
+    }
+    
+    .container {
+        margin: 0.5rem;
+        padding: 0.75rem;
+    }
+    
+    .confirmation-message {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .payment-section {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .qr-code-container {
+        min-width: auto;
+    }
+    
+    .delivery-info {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .info-box {
+        padding: 0.75rem;
+    }
+}

@@ -1,0 +1,90 @@
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0 clamp(1rem, 5vw, 2rem);    
+    overflow-x: hidden; 
+}
+
+.logo {
+    width: clamp(6.25rem, 20%, 12.5rem);
+    height: auto;
+    display: block;
+    margin: 1rem auto 0.5rem;
+}
+
+.container {
+    text-align: center;
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 100;
+    color: black;
+    border: 1px solid #eee;
+    width: 100%;
+    max-width: 31rem;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: clamp(0.75rem, 2vw, 1rem);
+    text-align: left;
+}
+
+h2 {
+    color: #74292c;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: clamp(0.5rem, 2vw, 0.75rem);
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.submit-btn {
+    background-color: #74292c;
+    color: white;
+    padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.25rem);
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    transition: opacity 0.3s ease;
+    font-family: 'Josefin Sans', sans-serif;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 1.25rem;
+        border-radius: 0.25rem;
+    }
+    
+    body {
+        padding: 0.5rem;
+    }
+}
