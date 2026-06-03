@@ -1,202 +1,205 @@
-# Tugurio-Semplice
 # TugurioSemplice
 
-## Descrizione del progetto
-
-**TugurioSemplice** è un'applicazione web sviluppata in **Java EE** per la gestione di un e-commerce.
-
-Il progetto permette:
-
-* registrazione e login utente
-* visualizzazione catalogo prodotti
-* ricerca prodotti
-* gestione carrello
-* checkout ordini
-* gestione pagamento
-* generazione fattura
-* gestione ordini utente
-* area amministratore
-
-L'architettura segue il pattern **MVC (Model - View - Controller)**:
-
-* **Model** → gestione dati e accesso database
-* **View** → JSP e interfaccia utente
-* **Controller** → Servlet Java
+E-commerce per la vendita di bare artigianali, sviluppato come progetto universitario in **Java EE** con architettura **MVC**.
 
 ---
 
-## Tecnologie utilizzate
+## Cosa fa
 
-* Java
-* Servlet
-* JSP
-* HTML / CSS
-* MySQL
-* Apache Tomcat
-* JDBC
+TugurioSemplice è un'applicazione web che gestisce l'intero ciclo di vendita online:
+
+- **Catalogo prodotti** — visualizzazione e ricerca dei prodotti disponibili con scheda dettaglio
+- **Carrello** — aggiunta, modifica e rimozione prodotti
+- **Checkout** — inserimento dati di spedizione e pagamento con carta di credito
+- **Conferma ordine** — riepilogo e generazione QR code di conferma
+- **Fattura** — generazione e download della fattura in PDF
+- **Area utente** — storico ordini, modifica dati anagrafici e di spedizione
+- **Registrazione / Login / Recupero password**
+- **Area amministratore** — gestione catalogo prodotti e lista utenti
 
 ---
 
-## Librerie utilizzate
+## Stack tecnologico
 
-Nella cartella `WEB-INF/lib` sono presenti:
+| Layer | Tecnologie |
+|---|---|
+| Backend | Java EE, Servlet, JDBC |
+| Frontend | JSP, HTML, CSS, JavaScript |
+| Database | MySQL 8 |
+| Server | Apache Tomcat |
+| Build / IDE | Eclipse (progetto WTP) |
 
-* gson
-* mysql-connector-java
-* qrgen
-* zxing core
-* zxing javase
+**Librerie incluse** (in `WEB-INF/lib/`):
+
+- `gson` — serializzazione JSON
+- `mysql-connector-java 8.0.12` — driver JDBC per MySQL
+- `qrgen 1.4` + `zxing core/javase 3.5.1` — generazione QR code
 
 ---
 
 ## Struttura del progetto
 
-```text
-src/
- ├── Model/
- │    ├── Bean
- │    ├── DAO
- │
- ├── Control/
- │    ├── Filtri
- │    ├── Servlet principali
-
-WebContent/
- ├── Home/
- ├── AccessoUtente/
- ├── Checkout/
- ├── VisioneProdotti/
- ├── css/
-
-db/
- ├── tugurio.sql
+```
+TugurioSemplice/
+├── src/
+│   ├── Model/
+│   │   ├── DAO.java                  # Classe base con gestione connessione
+│   │   ├── ClienteBean/DAO           # Gestione utenti
+│   │   ├── ProdottoBean/DAO          # Catalogo prodotti
+│   │   ├── OrdineBean/DAO            # Ordini
+│   │   ├── ProdottoOrdineBean/DAO    # Righe ordine
+│   │   ├── CartaCreditoBean/DAO      # Pagamenti
+│   │   ├── SpedizioneBean            # Dati spedizione
+│   │   └── Cart.java                 # Logica carrello in sessione
+│   └── Control/
+│       ├── TugurioSemplice/          # Servlet principali
+│       │   ├── LoginController
+│       │   ├── SignInController
+│       │   ├── CartController
+│       │   ├── CheckoutController
+│       │   ├── OrdineController
+│       │   ├── PagamentoController
+│       │   ├── FatturaController
+│       │   ├── DisplayProductCatalogue
+│       │   ├── RicercaProdotto
+│       │   └── ...
+│       └── Filtri/
+│           ├── UtenteLoggatoFiltro   # Protegge le pagine autenticate
+│           └── AdminFiltro           # Protegge le pagine amministratore
+│
+├── WebContent/
+│   ├── index.jsp
+│   ├── AccessoUtente/    # Login, SignIn, Recupero password
+│   ├── AuthSites/        # Area utente (ordini, dati, modifica)
+│   ├── AdminAction/      # Gestione utenti e prodotti (solo admin)
+│   ├── VisioneProdotti/  # Catalogo e dettaglio prodotto
+│   ├── Checkout/         # Flusso checkout e conferma
+│   ├── Home/             # Chi siamo, Contatti, Privacy, T&C
+│   ├── ErrorPage/        # Pagine 403, 404, 500
+│   ├── css/
+│   ├── JavaScript/
+│   ├── photo/            # Immagini prodotti e UI
+│   └── WEB-INF/
+│       ├── web.xml
+│       ├── lib/
+│       └── context.xml   # Configurazione DataSource Tomcat
+│
+└── db/
+    └── tugurio.sql       # Schema e dati iniziali
 ```
 
 ---
 
-## Principali componenti
+## Schema database
 
-### Model
+Il database si chiama `Tugurio` e contiene le seguenti tabelle principali:
 
-Contiene:
-
-* Bean Java
-* DAO per accesso database
-
-Esempi:
-
-* `ProdottoDAO`
-* `ClienteDAO`
-* `OrdineDAO`
+- `Cliente` — credenziali e ruolo (utente / amministratore)
+- `Dati_Anagrafici` — nome, cognome, codice fiscale, telefono
+- `Indirizzo_Spedizione` — via, CAP, città, provincia
+- `Carta_Credito` — dati carta (non cifrati — vedi note sicurezza)
+- `Prodotto` — nome, descrizione, quantità, prezzo, IVA, immagine
+- `Ordine` — ordini effettuati con stato e data
+- `ProdottoOrdine` — righe ordine (prodotto × quantità × prezzo)
+- `Pagamento` / `Spedizione` — dati relativi a ogni ordine
 
 ---
 
-### Controller
+## Installazione e configurazione
 
-Gestisce le richieste HTTP.
+### Prerequisiti
 
-Esempi:
-
-* `LoginController`
-* `SignInController`
-* `CartController`
-* `CheckoutController`
-* `OrdineController`
+- **JDK 8+**
+- **Apache Tomcat 9.x**
+- **MySQL 8.x**
+- **Eclipse IDE for Enterprise Java Developers 2026-03 (Eclipse 26)** (consigliato) oppure IntelliJ IDEA Ultimate
 
 ---
 
-### Filtri
+### 1. Database
 
-Gestione sicurezza accessi:
-
-* `UtenteLoggatoFiltro`
-* `AdminFiltro`
-
----
-
-## Database
-
-Il file SQL è presente in:
-
-```text
-db/tugurio.sql
-```
-
-### Importazione database
-
-1. Aprire MySQL
-2. Creare un database
-3. Importare il file SQL
+Aprire MySQL e importare lo schema:
 
 ```sql
-source tugurio.sql
+source /percorso/al/file/db/tugurio.sql;
 ```
 
----
-
-## Configurazione
-
-Verificare i parametri di connessione nel DAO principale.
-
-Configurare:
-
-* nome database
-* username
-* password
+Questo crea il database `Tugurio` con tutte le tabelle.
 
 ---
 
-## Avvio del progetto
+### 2. Configurazione connessione
 
-1. Importare il progetto in Eclipse / IntelliJ
-2. Configurare Apache Tomcat
-3. Deploy del progetto
-4. Avviare il server
+Il progetto usa un **JNDI DataSource** configurato in Tomcat.
+
+Aprire il file `WebContent/META-INF/context.xml` e modificare le credenziali:
+
+```xml
+<Resource name="jdbc/Tugurio"
+          url="jdbc:mysql://localhost:3306/Tugurio?useSSL=false&amp;serverTimezone=UTC"
+          username="TUO_USERNAME"
+          password="TUA_PASSWORD"
+          ... />
+```
+
+> ⚠️ **Il file contiene credenziali in chiaro** — non committare `context.xml` su repository pubblici.
 
 ---
 
-## URL principale
+### 3. Import del progetto in Eclipse
 
-```text
+1. **File → Import → Existing Projects into Workspace**
+2. Selezionare la cartella `TugurioSemplice-main`
+3. Eclipse rileverà automaticamente il progetto WTP (Web Tools Platform)
+
+---
+
+### 4. Configurare Apache Tomcat in Eclipse
+
+1. **Window → Preferences → Server → Runtime Environments → Add**
+2. Selezionare **Apache Tomcat 9.x** e indicare la directory di installazione
+3. Nella vista **Servers**, creare un nuovo server Tomcat 9
+4. Aggiungere il progetto `TugurioSemplice` al server
+
+---
+
+### 5. Avvio
+
+1. Click destro sul server → **Start**
+2. Aprire il browser su:
+
+```
 http://localhost:8080/TugurioSemplice
 ```
 
 ---
 
-## Funzionalità principali
+## Accesso amministratore
 
-### Utente
-
-* Registrazione
-* Login
-* Ricerca prodotti
-* Carrello
-* Checkout
-* Storico ordini
-
-### Admin
-
-* Gestione catalogo prodotti
-* Controllo ordini
+Per creare un account admin, impostare manualmente il campo `Amministratore = TRUE` nella tabella `Cliente` oppure usare la servlet `/AdminAction/InsertAdmin` (accessibile solo da admin già autenticato).
 
 ---
 
-## Note
+## Note sulla sicurezza
 
-Il progetto utilizza:
+Il progetto è a scopo **didattico** e presenta alcune limitazioni intenzionalmente non risolte:
 
-* sessioni utente
-* filtri servlet
-* accesso JDBC diretto
+- Le password sono salvate in chiaro (nessun hashing)
+- I dati della carta di credito sono salvati in chiaro
+- Nessun HTTPS configurato
+- Credenziali DB in `context.xml`
+
+**Non adatto per uso in produzione.**
 
 ---
 
-## Possibili miglioramenti futuri
+## Possibili miglioramenti
 
-* password cifrate
-* responsive design
-* pagamenti avanzati
-* API REST
+- Hashing password (bcrypt)
+- Cifratura dati sensibili
+- Responsive design / mobile first
+- Integrazione con gateway di pagamento reali
+- Refactoring verso API REST + frontend separato
 
 ---
 
